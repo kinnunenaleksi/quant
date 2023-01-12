@@ -7,47 +7,46 @@ format:
     page-layout: full
 ---
 
+
+
 ## Outline
 
 This is a mandatory assignment for a course *Quantitative Risk and Asset Management* handed in 2022 at Oslo BI Norwegian Business School, transformed into a readable notebook form.
 
 The data used has daily returns for 17 US industries (from the Kenneth French database, value weighted) from 1926 to 2022.
 
-```{r}
-#| include: false
-library(moments)
-library(tidyverse)
-```
 
-```{r}
-#| cache: true
+
+
+::: {.cell hash='BI-Quant_cache/html/unnamed-chunk-2_dc3900c9d4c249aea895d11cad557081'}
+
+```{.r .cell-code}
 data <- read.csv("/Users/aleksi/BI Quantitative Risk and Asset Management/Industry17PortfoliosDaily.csv", skip = 9, header = T)
 head(data)
 ```
 
-```{r Setting Up Data}
-#| include: false
-
-# First, renaming the column names for readability  
-colnames(data) <- c('date','food','mines','oil','clothes','durables','chemicals', 
-                    'consumables','construction','steel','fabricated','machinery',
-                    'cars','transport','utilities','retail','finance','others')
-summary(data) # looks like there are no -99.99 or -999 values, so no missing
-# values in the dataset
-
-# Converting the 'date' column variable into a R-compatible format
-
-year      <- substring(data$date,1,4)           # store substring representing year
-mont      <- substring(data$date,5,6)           # store substring representing month
-day       <- substring(data$date,7,8)           # substring representing the day
-temp      <- paste(year, mont, day, sep = '-')  # create string representing full date 
-date1     <- as.Date(temp) 
-data$date <- date1
-
-# Dividing the full sample by 100 in order not to have returns in percentage
-data <- data.frame(data[, "date"] , data[,-1] / 100)
-names(data)[names(data) == "data....date.."] <- "date" # renaming first column
+::: {.cell-output .cell-output-stdout}
 ```
+         X  Food Mines   Oil Clths Durbl Chems Cnsum Cnstr Steel FabPr Machn
+1 19260701  0.03  0.30  0.62  0.14 -1.09  0.56  0.04  0.30 -0.62 -0.79 -0.12
+2 19260702  0.11  0.36  0.71 -0.16 -0.57  1.01  0.60 -0.03  1.18  0.96  0.38
+3 19260706  0.05 -0.19  0.17  0.37 -1.90  0.21  0.47  0.38  0.17  0.68  0.51
+4 19260707  0.54 -0.17 -0.03  0.18 -0.06  0.83 -0.12 -0.10 -0.03  2.36 -0.12
+5 19260708  0.94  0.34  0.09  0.75 -0.28 -0.14  0.42  0.35 -0.07 -0.50  0.48
+6 19260709 -0.41 -0.57 -1.65 -0.09 -1.33 -1.61 -0.45 -0.72 -0.99 -2.08 -0.67
+   Cars Trans Utils Rtail Finan Other
+1 -0.15  0.08  0.61 -0.01  0.58 -0.01
+2  1.09  0.05  0.47  0.01 -0.16  0.38
+3  0.88 -0.16  0.73 -0.23  0.20  0.16
+4  0.04  0.12  0.17 -0.58 -0.07  0.42
+5  0.01  0.46 -0.20 -0.36 -0.48  0.49
+6 -1.09 -0.31 -0.74  0.41 -0.03 -0.16
+```
+:::
+:::
+
+
+
 
 ## Question 1 
 
@@ -55,7 +54,10 @@ names(data)[names(data) == "data....date.."] <- "date" # renaming first column
 
 
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Extracting the data from 1960 to 2022 from the full dataset
 data60.22 <- data[data[, 1] > "1960-01-01", ] 
 
@@ -73,8 +75,25 @@ log.ret60.22 <- apply((data60.22[, -1] + 1), 2, log) # + 1 to compute log return
 
 # Checking for NaNs and infinite values in the log returns:
 which(is.infinite(log.ret60.22)) # no infinite values
-which(is.nan(log.ret60.22))      # no NaNs
+```
 
+::: {.cell-output .cell-output-stdout}
+```
+integer(0)
+```
+:::
+
+```{.r .cell-code}
+which(is.nan(log.ret60.22))      # no NaNs
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+integer(0)
+```
+:::
+
+```{.r .cell-code}
 # Computing annualized average log returns for every industry
 avg.log.ret60.22 <- colMeans(log.ret60.22, na.rm = T) * 252
 
@@ -82,50 +101,57 @@ avg.log.ret60.22 <- colMeans(log.ret60.22, na.rm = T) * 252
 skew <- apply(data60.22[, -1], 2, skewness ) 
 kurt <- apply(data60.22[, -1], 2, kurtosis )
 mean(kurt) 
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+[1] 17.25315
+```
+:::
+
+```{.r .cell-code}
 median(kurt)
 ```
 
-```{r plot }
-#| echo: false
-#| layout-ncol: 2
-
-y <- data.frame(industry.std60.22)
-x <- data.frame(avg.ret60.22)
-M1 <- cbind(y,x)
-
-p1 <- ggplot(M1, aes(x=industry.std60.22, y=avg.ret60.22)) +
-  geom_point(size = 1.5, shape=23) +
-  geom_smooth(se = FALSE, color = "red", lwd = 0.55, method = "lm") +
-  scale_y_continuous(labels = scales :: percent) +
-  scale_x_continuous(labels = scales :: percent) +
-  theme_bw() + 
-  labs(title = "Average Returns to Volatility (1.1)", x = "Standard Deviations", y ="Average Returns") +
-  theme(axis.title = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5))
-
-p1 + theme(plot.title = element_text(size = 17))
-
-z <- data.frame(avg.log.ret60.22)
-M2 <- cbind(z, y)
-
-p2 <- ggplot(M2,aes(x = industry.std60.22, y = avg.log.ret60.22 )) +
-  geom_point(size = 2.5, shape=23) +
-  geom_smooth(method = "lm", formula = y~x, se = FALSE, color = "red", lwd = 0.55) + 
-  labs(title = "Average Log Returns to Volatility (1.2)", x = "Standard Deviations", y ="Average Log Returns") + 
-  scale_y_continuous(labels = scales :: percent) +
-  scale_x_continuous(labels = scales :: percent) + 
-  theme_bw() +
-  theme(axis.title = element_text(size = 12),
-        plot.title = element_text(hjust = 0.5))
-
-p2  + theme(plot.title = element_text(size = 17))
+::: {.cell-output .cell-output-stdout}
 ```
+[1] 16.74064
+```
+:::
+:::
+
+::: {.cell layout-ncol="2"}
+::: {.cell-output .cell-output-stderr}
+```
+Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+```
+:::
+
+::: {.cell-output .cell-output-stderr}
+```
+`geom_smooth()` using formula = 'y ~ x'
+```
+:::
+
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/plot-1.png){width=672}
+:::
+
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/plot-2.png){width=672}
+:::
+:::
+
 
 ## Question 2
 
 ### 2.1 - Plot the Cumulative log returns for an equal-weighted portfolio (each industry with weight 1/17). Compute mean, std, and Sharpe ratio for returns.
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Computing the portfolio average returns over the 1960-2022 period
 bal.port.weights <- rep(1/17,17)                                
 bal.port.ret     <- rowSums(bal.port.weights * data60.22[, -1]) 
@@ -141,8 +167,11 @@ bal.port.Sharpe <- bal.port.avg.ret / bal.port.std
 bal.port.log.ret     <- log(1 + bal.port.ret)    
 bal.port.cum.log.ret <- cumsum(bal.port.log.ret) 
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 ### Plot 4: Cumulative Log returns of the Equally weighted portfolio 
 x1 <- data.frame(data60.22$date)
 y1 <- data.frame(bal.port.cum.log.ret)
@@ -159,9 +188,18 @@ p3 <- ggplot(M3, aes(x = data60.22$date, y = bal.port.cum.log.ret)) +
 p3 + theme(plot.title = element_text(size = 17))
 ```
 
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-5-1.png){width=672}
+:::
+:::
+
+
 ### Question 2.2 - Repeat 2.1, but now weight each industry by the inverse of its full-sample standard deviation, with weights normalized so they sum up to one.
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Computing the full sample industry annualized standard deviation
 industry.std.full.sample <- apply(data[, -1], 2, sd) 
 
@@ -169,8 +207,25 @@ industry.std.full.sample <- apply(data[, -1], 2, sd)
 normalizer        <- (1 / sum(industry.std.full.sample))   # normalizing coefficient
 norm.port.weights <- industry.std.full.sample * normalizer # normalized weights
 sum(norm.port.weights)                                     # they sum up to 1 
-mean(norm.port.weights) == 1/17                            # equal to 1/17
+```
 
+::: {.cell-output .cell-output-stdout}
+```
+[1] 1
+```
+:::
+
+```{.r .cell-code}
+mean(norm.port.weights) == 1/17                            # equal to 1/17
+```
+
+::: {.cell-output .cell-output-stdout}
+```
+[1] TRUE
+```
+:::
+
+```{.r .cell-code}
 # Annualized average normalized Portfolio returns, 1960-2022 sample data
 norm.port.ret     <- rowSums(norm.port.weights * data60.22[, -1])
 norm.port.avg.ret <- mean(norm.port.ret) * 252 # norm port returns, annualized
@@ -185,8 +240,11 @@ norm.port.Sharpe <- norm.port.avg.ret / norm.port.std
 norm.port.log.ret     <- log(1 + norm.port.ret)   
 norm.port.cum.log.ret <- cumsum(norm.port.log.ret) 
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 ### Plot 5: Cumulative Log returns of the normalized portfolio 
 x1 <- data.frame(data60.22$date)
 y2 <- data.frame(norm.port.cum.log.ret)
@@ -204,9 +262,18 @@ p4 <- ggplot(M4, aes(x = data60.22$date, y = norm.port.cum.log.ret)) +
 p4 + theme(plot.title = element_text(size = 17)) 
 ```
 
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-7-1.png){width=672}
+:::
+:::
+
+
 ### Question 2.3 - Repeat (1), but now each month select the 6 industries (each allocated 1/6 of capital) with the highest return in the past 12 months (computed as$[ P(i;t) / P(i;t-250) ] - 1)$.
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Generating year.month variable for the 1960-2022 dataset, so that then we can
 # select directly both the year and month at the same time
 year.mont  <- substring(data60.22$date, 1, 7) 
@@ -227,11 +294,23 @@ colnames(month.rets)[1] <- "year.mont"
 
 log.month.rets.no.date  <- month.rets[, -1]
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 # For loop to get 12 months rolling window for the best 6 asset classes
 # Initializing all the variables we need
 rm(list)
+```
+
+::: {.cell-output .cell-output-stderr}
+```
+Warning in rm(list): object 'list' not found
+```
+:::
+
+```{.r .cell-code}
 industry <- colnames(log.month.rets.no.date) # list of names of every industry
 n        <- nrow(month.rets)                 # dimension for the loop, 745 iterations
 list     <- NULL                             # initializing the variable that will contain all the 
@@ -285,8 +364,11 @@ month.rets$year.mont   <- as.Date(paste(month.rets$year.mont, '01', sep = '-') )
 best6.port.log.ret     <- log(1 + best.six.port.ret)  
 best6.port.cum.log.ret <- cumsum(best6.port.log.ret ) 
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 ### Plot 6: Cumulative Log returns for the 12 months momentum strategy portfolio 
 y3 <- data.frame(month.rets$year.mont[-(1:12)])
 x3 <- data.frame(best6.port.cum.log.ret)
@@ -303,16 +385,33 @@ p5 <- ggplot(M5, aes(x = month.rets$year.mont[-(1:12)], y = best6.port.cum.log.r
 p5 + theme(plot.title = element_text(size = 17)) 
 ```
 
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-10-1.png){width=672}
+:::
+:::
+
+
 ## Question 3
 
 ### 3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.
 
-```{r}
-#| cache: true
+
+::: {.cell hash='BI-Quant_cache/html/unnamed-chunk-11_20b9608ab8de44f9d02d27dd109ac726'}
+
+```{.r .cell-code}
 # First, we need to find the best 6 asset classes in the previous 3 months 
 # (63 trading days). We proceed as above, but using daily returns dataset 
 
 rm(list2)
+```
+
+::: {.cell-output .cell-output-stderr}
+```
+Warning in rm(list2): object 'list2' not found
+```
+:::
+
+```{.r .cell-code}
 industry2 <- colnames(data60.22[, -1]) # industry variable as before, with no date
 n2        <- nrow(data60.22)           # dimension of the for loop
 list2     <- NULL
@@ -362,8 +461,11 @@ for (i in (1 : N ) ) {
   }
 }
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 # Portfolio returns
 data60.22.cut     <- data60.22[-(1:63), -1 ] # removing the first 3 months
 
@@ -376,8 +478,11 @@ port.ret.star.std <- sd(port.ret.star)*sqrt(252)
 # Portfolio Sharpe Ratio
 Sharpe.star <- avg.port.ret.star / port.ret.star.std
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 # Plotting portfolio cumulative log returns
 port.log.ret.star     <- log(port.ret.star + 1)
 port.cum.log.ret.star <- cumsum(port.log.ret.star)
@@ -399,11 +504,20 @@ p6 <- ggplot(M6, aes(x = data60.22$date[-(1:63)], y = port.cum.log.ret.star)) +
 p6 + theme(plot.title = element_text(size = 17))
 ```
 
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-13-1.png){width=672}
+:::
+:::
+
+
 ## Question 4
 
 ### 4.1 - Compute the equal-weighted portfolio as in Question 2.1 (on the 1960-2022 sample) and the yearly return in each industry as in Question 2.3. In each period (each day), compute the share alpha_t of industries with positive momentum (positive yearly return), and invest in the equal-weighted portfolio each month a share alpha_t, with the rest going to cash, which you should assume yields 3% annually
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 n.60.22 <- nrow(data60.22) 
 
 # Defining a new empty matrix to be filled in the loop, that will contain all the 
@@ -451,8 +565,69 @@ Sharpe_ratio_final <- mean_excess_rets / excess_rets_std
 cor(data60.22[, -1]) # They are all positively correlated
 ```
 
-```{r}
-#| layout-ncol: 2
+::: {.cell-output .cell-output-stdout}
+```
+                  food     mines       oil   clothes  durables chemicals
+food         1.0000000 0.4221401 0.5635021 0.6372003 0.6668227 0.6818481
+mines        0.4221401 1.0000000 0.6027994 0.4952207 0.5062316 0.6181290
+oil          0.5635021 0.6027994 1.0000000 0.5442680 0.5618443 0.6903127
+clothes      0.6372003 0.4952207 0.5442680 1.0000000 0.7418931 0.7075379
+durables     0.6668227 0.5062316 0.5618443 0.7418931 1.0000000 0.7371643
+chemicals    0.6818481 0.6181290 0.6903127 0.7075379 0.7371643 1.0000000
+consumables  0.7851581 0.4061970 0.5433978 0.6017780 0.6762898 0.6625151
+construction 0.6901560 0.5448562 0.5982225 0.7858976 0.7717992 0.7626440
+steel        0.5423509 0.6874389 0.6536077 0.6596458 0.6644166 0.7670215
+fabricated   0.6526977 0.5799275 0.6269678 0.7443878 0.7470930 0.7807940
+machinery    0.5933947 0.5282759 0.5550709 0.6855738 0.7480683 0.6985862
+cars         0.5876973 0.4788203 0.5273881 0.6699730 0.7123470 0.6906050
+transport    0.6985269 0.5542982 0.6423833 0.7605967 0.7823973 0.8002957
+utilities    0.6671723 0.4621931 0.6120628 0.5619578 0.5592346 0.6185207
+retail       0.7152233 0.4379905 0.5158985 0.7478446 0.7419169 0.6901858
+finance      0.6738145 0.5283206 0.6144143 0.7472040 0.7392522 0.7489268
+others       0.7061397 0.5444107 0.6054952 0.7608868 0.7904640 0.7517579
+             consumables construction     steel fabricated machinery      cars
+food           0.7851581    0.6901560 0.5423509  0.6526977 0.5933947 0.5876973
+mines          0.4061970    0.5448562 0.6874389  0.5799275 0.5282759 0.4788203
+oil            0.5433978    0.5982225 0.6536077  0.6269678 0.5550709 0.5273881
+clothes        0.6017780    0.7858976 0.6596458  0.7443878 0.6855738 0.6699730
+durables       0.6762898    0.7717992 0.6644166  0.7470930 0.7480683 0.7123470
+chemicals      0.6625151    0.7626440 0.7670215  0.7807940 0.6985862 0.6906050
+consumables    1.0000000    0.6653683 0.5208705  0.6286297 0.6258095 0.5712887
+construction   0.6653683    1.0000000 0.6990675  0.7780020 0.7207812 0.7065914
+steel          0.5208705    0.6990675 1.0000000  0.7393210 0.7079244 0.6399191
+fabricated     0.6286297    0.7780020 0.7393210  1.0000000 0.7192180 0.6782067
+machinery      0.6258095    0.7207812 0.7079244  0.7192180 1.0000000 0.6780107
+cars           0.5712887    0.7065914 0.6399191  0.6782067 0.6780107 1.0000000
+transport      0.6858305    0.7993345 0.7326697  0.8056136 0.7503247 0.7203940
+utilities      0.6088031    0.6093170 0.5355988  0.6182085 0.5155898 0.5083854
+retail         0.7167139    0.7950867 0.5920443  0.6912343 0.7061698 0.6765263
+finance        0.6670276    0.7977089 0.6996558  0.7543433 0.7109848 0.6814829
+others         0.7305838    0.8002420 0.7256041  0.7747935 0.8726412 0.7245589
+             transport utilities    retail   finance    others
+food         0.6985269 0.6671723 0.7152233 0.6738145 0.7061397
+mines        0.5542982 0.4621931 0.4379905 0.5283206 0.5444107
+oil          0.6423833 0.6120628 0.5158985 0.6144143 0.6054952
+clothes      0.7605967 0.5619578 0.7478446 0.7472040 0.7608868
+durables     0.7823973 0.5592346 0.7419169 0.7392522 0.7904640
+chemicals    0.8002957 0.6185207 0.6901858 0.7489268 0.7517579
+consumables  0.6858305 0.6088031 0.7167139 0.6670276 0.7305838
+construction 0.7993345 0.6093170 0.7950867 0.7977089 0.8002420
+steel        0.7326697 0.5355988 0.5920443 0.6996558 0.7256041
+fabricated   0.8056136 0.6182085 0.6912343 0.7543433 0.7747935
+machinery    0.7503247 0.5155898 0.7061698 0.7109848 0.8726412
+cars         0.7203940 0.5083854 0.6765263 0.6814829 0.7245589
+transport    1.0000000 0.6205587 0.7419667 0.7895643 0.8075617
+utilities    0.6205587 1.0000000 0.5586017 0.6232721 0.6268410
+retail       0.7419667 0.5586017 1.0000000 0.7223783 0.8001743
+finance      0.7895643 0.6232721 0.7223783 1.0000000 0.8034126
+others       0.8075617 0.6268410 0.8001743 0.8034126 1.0000000
+```
+:::
+:::
+
+::: {.cell layout-ncol="2"}
+
+```{.r .cell-code}
 ### Plot 8: Cumulative Log returns for the portfolio with alpha wealth invested
 # in an EW portfolio in the industries and (1-alpha) weight in a Risk Free rate
 # asset that yields 3% per annum
@@ -471,7 +646,13 @@ p7 <- ggplot(M7, aes(x = data60.22$date[-(1:252)], y = port.cum.log.exc.ret)) +
   scale_y_continuous(labels = scales :: percent)
 
 p7 + theme(plot.title = element_text(size = 17)) 
+```
 
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-15-1.png){width=672}
+:::
+
+```{.r .cell-code}
 ### plot 9: Daily allocation in the EW portfolio of industries
 
 x8 <- data.frame(data60.22$date[-(1:252)])
@@ -489,14 +670,29 @@ p10 <- ggplot(M8, aes(x = data60.22$date[-(1:252)], y = alpha.portfolio)) +
   scale_y_continuous(labels = scales :: percent)
 
 p10 + theme(plot.title = element_text(size = 17)) 
-
 ```
+
+::: {.cell-output .cell-output-stderr}
+```
+`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+`geom_smooth()` using formula = 'y ~ x'
+```
+:::
+
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-15-2.png){width=672}
+:::
+:::
+
 
 ## Question 5
 
 ### 5.1 - For the full sample, repeat the momentum strategy in Question 2.3, but use the returns of the previous five years (252 \* 5 days) as a measure of momentum. Briefly comment on the results.
 
-```{r}
+
+::: {.cell}
+
+```{.r .cell-code}
 # Full log dataset to aggregate
 log.data.no.date <- log(data[, -1] + 1) 
 
@@ -523,6 +719,15 @@ month.rets.full     <- aggregate(data.year.mont.full[, -1],
 # For loop to get 5 years rolling window for the best 6 asset classes
 # Initializing all the variables we need
 rm(list3)
+```
+
+::: {.cell-output .cell-output-stderr}
+```
+Warning in rm(list3): object 'list3' not found
+```
+:::
+
+```{.r .cell-code}
 industry3        <- colnames(log.month.rets.full[-1]) 
 yearly.Rets.full <- NULL                           
 n.full           <- nrow(log.month.rets.full)           
@@ -559,8 +764,11 @@ best.six.std.full <- sd(best.six.port.ret.full)*sqrt(12)
 # Portfolio Sharpe Ratio
 best.six.sharpe.full <- best.six.avg.port.ret.full  / best.six.std.full
 ```
+:::
 
-```{r}
+::: {.cell}
+
+```{.r .cell-code}
 # Plotting cumulative portfolio returns
 colnames(month.rets.full)[1] <- "year.mont"
 month.rets.full$year.mont    <- as.Date(paste(month.rets.full$year.mont, '01', sep = '-') )
@@ -583,3 +791,8 @@ p8 <- ggplot(M8, aes(x = month.rets.full$year.mont[-(1:60)], y = port.cum.log.re
 
 p8 + theme(plot.title = element_text(size = 17)) 
 ```
+
+::: {.cell-output-display}
+![](BI-Quant_files/figure-html/unnamed-chunk-17-1.png){width=672}
+:::
+:::
