@@ -86,16 +86,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="BI Quant_files/libs/clipboard/clipboard.min.js"></script>
-<script src="BI Quant_files/libs/quarto-html/quarto.js"></script>
-<script src="BI Quant_files/libs/quarto-html/popper.min.js"></script>
-<script src="BI Quant_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="BI Quant_files/libs/quarto-html/anchor.min.js"></script>
-<link href="BI Quant_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="BI Quant_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="BI Quant_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="BI Quant_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="BI Quant_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="quant_files/libs/clipboard/clipboard.min.js"></script>
+<script src="quant_files/libs/quarto-html/quarto.js"></script>
+<script src="quant_files/libs/quarto-html/popper.min.js"></script>
+<script src="quant_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="quant_files/libs/quarto-html/anchor.min.js"></script>
+<link href="quant_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="quant_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="quant_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="quant_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="quant_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -158,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
 <p>This is a mandatory assignment for a course <em>Quantitative Risk and Asset Management</em> handed in 2022 at Oslo BI Norwegian Business School, transformed into a readable notebook form.</p>
 <p>The data used has daily returns for 17 US industries (from the Kenneth French database, value weighted) from 1926 to 2022.</p>
-<div class="cell" data-hash="BI-Quant_cache/html/unnamed-chunk-2_dc3900c9d4c249aea895d11cad557081">
+<div class="cell" data-hash="quant_cache/html/unnamed-chunk-2_307cf7d8c895275bd2224644ed88dcee">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/aleksi/BI Quantitative Risk and Asset Management/Industry17PortfoliosDaily.csv"</span>, <span class="at">skip =</span> <span class="dv">9</span>, <span class="at">header =</span> T)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -234,10 +234,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="BI-Quant_files/figure-html/plot-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/plot-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="BI-Quant_files/figure-html/plot-2.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/plot-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -280,7 +280,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>p3 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -332,7 +332,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>p4 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -435,7 +435,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>p5 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -444,7 +444,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
 <section id="repeat-the-momentum-strategy-of-question-2.3-but-instead-of-a-constant-full-allocation-of-capital-in-each-period-day-compute-the-covariance-matrix-between-the-6-chosen-industry-in-the-previous-3-months-63-trading-days-and-use-it-to-target-a-constant-portfolio-standard-deviation-of-20-annually." class="level3">
 <h3 class="anchored" data-anchor-id="repeat-the-momentum-strategy-of-question-2.3-but-instead-of-a-constant-full-allocation-of-capital-in-each-period-day-compute-the-covariance-matrix-between-the-6-chosen-industry-in-the-previous-3-months-63-trading-days-and-use-it-to-target-a-constant-portfolio-standard-deviation-of-20-annually.">3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.</h3>
-<div class="cell" data-hash="BI-Quant_cache/html/unnamed-chunk-11_20b9608ab8de44f9d02d27dd109ac726">
+<div class="cell" data-hash="quant_cache/html/unnamed-chunk-11_a976b5ae726b8d83d82199cca5692247">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, we need to find the best 6 asset classes in the previous 3 months </span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (63 trading days). We proceed as above, but using daily returns dataset </span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -535,7 +535,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>p6 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -690,10 +690,10 @@ others       0.8075617 0.6268410 0.8001743 0.8034126 1.0000000</code></pre>
 <div class="cell quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-15-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -793,7 +793,7 @@ others       0.8075617 0.6268410 0.8001743 0.8034126 1.0000000</code></pre>
 <span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>p8 <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">17</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="BI-Quant_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+<p><img src="quant_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>

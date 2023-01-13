@@ -18,7 +18,7 @@ The data used has daily returns for 17 US industries (from the Kenneth French da
 
 
 
-::: {.cell hash='BI-Quant_cache/html/unnamed-chunk-2_dc3900c9d4c249aea895d11cad557081'}
+::: {.cell hash='quant_cache/html/unnamed-chunk-2_307cf7d8c895275bd2224644ed88dcee'}
 
 ```{.r .cell-code}
 data <- read.csv("/Users/aleksi/BI Quantitative Risk and Asset Management/Industry17PortfoliosDaily.csv", skip = 9, header = T)
@@ -133,11 +133,11 @@ Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
 :::
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/plot-1.png){width=672}
+![](quant_files/figure-html/plot-1.png){width=672}
 :::
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/plot-2.png){width=672}
+![](quant_files/figure-html/plot-2.png){width=672}
 :::
 :::
 
@@ -187,7 +187,7 @@ p3 + theme(plot.title = element_text(size = 17))
 ```
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-5-1.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-5-1.png){width=672}
 :::
 :::
 
@@ -261,7 +261,7 @@ p4 + theme(plot.title = element_text(size = 17))
 ```
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-7-1.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-7-1.png){width=672}
 :::
 :::
 
@@ -384,7 +384,7 @@ p5 + theme(plot.title = element_text(size = 17))
 ```
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-10-1.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-10-1.png){width=672}
 :::
 :::
 
@@ -394,7 +394,7 @@ p5 + theme(plot.title = element_text(size = 17))
 ### 3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.
 
 
-::: {.cell hash='BI-Quant_cache/html/unnamed-chunk-11_20b9608ab8de44f9d02d27dd109ac726'}
+::: {.cell hash='quant_cache/html/unnamed-chunk-11_a976b5ae726b8d83d82199cca5692247'}
 
 ```{.r .cell-code}
 # First, we need to find the best 6 asset classes in the previous 3 months 
@@ -503,7 +503,7 @@ p6 + theme(plot.title = element_text(size = 17))
 ```
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-13-1.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-13-1.png){width=672}
 :::
 :::
 
@@ -647,7 +647,7 @@ p7 + theme(plot.title = element_text(size = 17))
 ```
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-15-1.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-15-1.png){width=672}
 :::
 
 ```{.r .cell-code}
@@ -678,7 +678,7 @@ p10 + theme(plot.title = element_text(size = 17))
 :::
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-15-2.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-15-2.png){width=672}
 :::
 :::
 
@@ -791,6 +791,6 @@ p8 + theme(plot.title = element_text(size = 17))
 ```
 
 ::: {.cell-output-display}
-![](BI-Quant_files/figure-html/unnamed-chunk-17-1.png){width=672}
+![](quant_files/figure-html/unnamed-chunk-17-1.png){width=672}
 :::
 :::
