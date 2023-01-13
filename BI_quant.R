@@ -4,11 +4,9 @@
 
 # Take Home Exam - Quantitative Risk and Asset Management
 
-rm(list = ls())
-cat("\014")
 library(moments)
 library(tidyverse)
-setwd("~/a_UNIVERSITA'/Esami BI Norvegia/Quant. Risk & Asset Man. BI/Take Home Exam")
+setwd("/Users/aleksi/BI Quantitative Risk and Asset Management")
 
 # Preliminary work on the dataset
 
