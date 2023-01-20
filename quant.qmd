@@ -1,10 +1,8 @@
 ---
 title: "Quantitative Risk and Asset Management"
+format: gfm
 toc: true
 keep-md: true
-format:
-  html:
-    page-layout: full
 ---
 
 ## Outline
