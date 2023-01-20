@@ -9,7 +9,7 @@ format:
 
 ## Outline
 
-This is a mandatory assignment for a course *Quantitative Risk and Asset Management* handed in 2022 at Oslo BI Norwegian Business School, transformed into a readable notebook form.
+This is a mandatory assignment for a course *Quantitative Risk and Asset Management* handed in 2022, transformed into a readable notebook form.
 
 The data used has daily returns for 17 US industries (from the Kenneth French database, value weighted) from 1926 to 2022.
 
