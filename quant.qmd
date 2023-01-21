@@ -1,11 +1,10 @@
 ---
 title: "Quantitative Risk and Asset Management"
 format:
-  html: 
-    keep-md: true
   gfm:
     toc: true
     toc-title: Table of Contents
+    keep-html: true
     keep-md: true
     code-fold: true
 ---
@@ -15,6 +14,10 @@ format:
 This is a mandatory assignment for a course *Quantitative Risk and Asset Management* handed in 2022, transformed into a readable notebook form.
 
 The data used has daily returns for 17 US industries (from the Kenneth French database, value weighted) from 1926 to 2022.
+
+Testing how github renders functions:
+
+$\frac{\alpha}{2 \lambda}$
 
 ```{r}
 #| include: false
@@ -54,7 +57,7 @@ names(data)[names(data) == "data....date.."] <- "date" # renaming first column
 
 ## Question 1
 
-### 1.1: On average, do more volatile industries have higher average log returns? And higher average returns?
+1.1: On average, do more volatile industries have higher average log returns? And higher average returns?
 
 ```{r}
 # Extracting the data from 1960 to 2022 from the full dataset
@@ -124,7 +127,8 @@ p2  + theme(plot.title = element_text(size = 17))
 
 ## Question 2
 
-### 2.1 - Plot the Cumulative log returns for an equal-weighted portfolio (each industry with weight 1/17). Compute mean, std, and Sharpe ratio for returns.
+### Question 2.1
+Plot the Cumulative log returns for an equal-weighted portfolio (each industry with weight 1/17). Compute mean, std, and Sharpe ratio for returns.
 
 ```{r}
 # Computing the portfolio average returns over the 1960-2022 period
@@ -160,7 +164,8 @@ p3 <- ggplot(M3, aes(x = data60.22$date, y = bal.port.cum.log.ret)) +
 p3 + theme(plot.title = element_text(size = 17))
 ```
 
-### Question 2.2 - Repeat 2.1, but now weight each industry by the inverse of its full-sample standard deviation, with weights normalized so they sum up to one.
+### Question 2.2
+Repeat 2.1, but now weight each industry by the inverse of its full-sample standard deviation, with weights normalized so they sum up to one.
 
 ```{r}
 # Computing the full sample industry annualized standard deviation
@@ -205,7 +210,9 @@ p4 <- ggplot(M4, aes(x = data60.22$date, y = norm.port.cum.log.ret)) +
 p4 + theme(plot.title = element_text(size = 17)) 
 ```
 
-### Question 2.3 - Repeat (1), but now each month select the 6 industries (each allocated 1/6 of capital) with the highest return in the past 12 months (computed as$[ P(i;t) / P(i;t-250) ] - 1)$.
+### Question 2.3
+
+Repeat (1), but now each month select the 6 industries (each allocated 1/6 of capital) with the highest return in the past 12 months (computed as $[ P(i;t) / P(i;t-250) ] - 1)$.
 
 ```{r}
 # Generating year.month variable for the 1960-2022 dataset, so that then we can
@@ -306,7 +313,7 @@ p5 + theme(plot.title = element_text(size = 17))
 
 ## Question 3
 
-### 3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.
+Question 3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.
 
 ```{r}
 #| cache: true
@@ -401,8 +408,7 @@ p6 + theme(plot.title = element_text(size = 17))
 ```
 
 ## Question 4
-
-### 4.1 - Compute the equal-weighted portfolio as in Question 2.1 (on the 1960-2022 sample) and the yearly return in each industry as in Question 2.3. In each period (each day), compute the share alpha_t of industries with positive momentum (positive yearly return), and invest in the equal-weighted portfolio each month a share alpha_t, with the rest going to cash, which you should assume yields 3% annually
+Compute the equal-weighted portfolio as in Question 2.1 (on the 1960-2022 sample) and the yearly return in each industry as in Question 2.3. In each period (each day), compute the share alpha_t of industries with positive momentum (positive yearly return), and invest in the equal-weighted portfolio each month a share alpha_t, with the rest going to cash, which you should assume yields 3% annually
 
 ```{r}
 n.60.22 <- nrow(data60.22) 
@@ -495,7 +501,7 @@ p10 + theme(plot.title = element_text(size = 17))
 
 ## Question 5
 
-### 5.1 - For the full sample, repeat the momentum strategy in Question 2.3, but use the returns of the previous five years (252 \* 5 days) as a measure of momentum. Briefly comment on the results.
+For the full sample, repeat the momentum strategy in Question 2.3, but use the returns of the previous five years (252 \* 5 days) as a measure of momentum. Briefly comment on the results.
 
 ```{r}
 # Full log dataset to aggregate
