@@ -119,11 +119,6 @@ median(kurt)
 
     [1] 16.74064
 
-    Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-    ℹ Please use `linewidth` instead.
-
-    `geom_smooth()` using formula = 'y ~ x'
-
 ![](quant_files/figure-commonmark/plot-1.png)
 
 ![](quant_files/figure-commonmark/plot-2.png)
@@ -299,16 +294,6 @@ log.month.rets.no.date  <- month.rets[, -1]
 # For loop to get 12 months rolling window for the best 6 asset classes
 # Initializing all the variables we need
 rm(list)
-```
-
-</details>
-
-    Warning in rm(list): object 'list' not found
-
-<details>
-<summary>Code</summary>
-
-``` r
 industry <- colnames(log.month.rets.no.date) # list of names of every industry
 n        <- nrow(month.rets)                 # dimension for the loop, 745 iterations
 list     <- NULL                             # initializing the variable that will contain all the 
@@ -404,16 +389,6 @@ standard deviation of 20% annually.
 # (63 trading days). We proceed as above, but using daily returns dataset 
 
 rm(list2)
-```
-
-</details>
-
-    Warning in rm(list2): object 'list2' not found
-
-<details>
-<summary>Code</summary>
-
-``` r
 industry2 <- colnames(data60.22[, -1]) # industry variable as before, with no date
 n2        <- nrow(data60.22)           # dimension of the for loop
 list2     <- NULL
@@ -682,9 +657,6 @@ p10 + theme(plot.title = element_text(size = 17))
 
 </details>
 
-    `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
-    `geom_smooth()` using formula = 'y ~ x'
-
 ![](quant_files/figure-commonmark/unnamed-chunk-15-2.png)
 
 ## Question 5
@@ -723,16 +695,6 @@ month.rets.full     <- aggregate(data.year.mont.full[, -1],
 # For loop to get 5 years rolling window for the best 6 asset classes
 # Initializing all the variables we need
 rm(list3)
-```
-
-</details>
-
-    Warning in rm(list3): object 'list3' not found
-
-<details>
-<summary>Code</summary>
-
-``` r
 industry3        <- colnames(log.month.rets.full[-1]) 
 yearly.Rets.full <- NULL                           
 n.full           <- nrow(log.month.rets.full)           

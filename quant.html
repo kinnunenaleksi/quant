@@ -128,6 +128,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 class="anchored" data-anchor-id="outline">Outline</h2>
 <p>This is a mandatory assignment for a course <em>Quantitative Risk and Asset Management</em> handed in 2022, transformed into a readable notebook form.</p>
 <p>The data used has daily returns for 17 US industries (from the Kenneth French database, value weighted) from 1926 to 2022.</p>
+<p>Testing how github renders functions:</p>
+<p><span class="math inline">\(\frac{\alpha}{2 \lambda}\)</span></p>
 <div class="cell" data-hash="quant_cache/html/unnamed-chunk-2_307cf7d8c895275bd2224644ed88dcee">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"/Users/aleksi/BI Quantitative Risk and Asset Management/Industry17PortfoliosDaily.csv"</span>, <span class="at">skip =</span> <span class="dv">9</span>, <span class="at">header =</span> T)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -151,8 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="question-1" class="level2">
 <h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
-<section id="on-average-do-more-volatile-industries-have-higher-average-log-returns-and-higher-average-returns" class="level3">
-<h3 class="anchored" data-anchor-id="on-average-do-more-volatile-industries-have-higher-average-log-returns-and-higher-average-returns">1.1: On average, do more volatile industries have higher average log returns? And higher average returns?</h3>
+<p>1.1: On average, do more volatile industries have higher average log returns? And higher average returns?</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extracting the data from 1960 to 2022 from the full dataset</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data60<span class="fl">.22</span> <span class="ot">&lt;-</span> data[data[, <span class="dv">1</span>] <span class="sc">&gt;</span> <span class="st">"1960-01-01"</span>, ] </span>
@@ -213,11 +214,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-</section>
 <section id="question-2" class="level2">
 <h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
-<section id="plot-the-cumulative-log-returns-for-an-equal-weighted-portfolio-each-industry-with-weight-117.-compute-mean-std-and-sharpe-ratio-for-returns." class="level3">
-<h3 class="anchored" data-anchor-id="plot-the-cumulative-log-returns-for-an-equal-weighted-portfolio-each-industry-with-weight-117.-compute-mean-std-and-sharpe-ratio-for-returns.">2.1 - Plot the Cumulative log returns for an equal-weighted portfolio (each industry with weight 1/17). Compute mean, std, and Sharpe ratio for returns.</h3>
+<section id="question-2.1" class="level3">
+<h3 class="anchored" data-anchor-id="question-2.1">Question 2.1</h3>
+<p>Plot the Cumulative log returns for an equal-weighted portfolio (each industry with weight 1/17). Compute mean, std, and Sharpe ratio for returns.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing the portfolio average returns over the 1960-2022 period</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>bal.port.weights <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">17</span>,<span class="dv">17</span>)                                </span>
@@ -254,8 +255,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="question-2.2---repeat-2.1-but-now-weight-each-industry-by-the-inverse-of-its-full-sample-standard-deviation-with-weights-normalized-so-they-sum-up-to-one." class="level3">
-<h3 class="anchored" data-anchor-id="question-2.2---repeat-2.1-but-now-weight-each-industry-by-the-inverse-of-its-full-sample-standard-deviation-with-weights-normalized-so-they-sum-up-to-one.">Question 2.2 - Repeat 2.1, but now weight each industry by the inverse of its full-sample standard deviation, with weights normalized so they sum up to one.</h3>
+<section id="question-2.2" class="level3">
+<h3 class="anchored" data-anchor-id="question-2.2">Question 2.2</h3>
+<p>Repeat 2.1, but now weight each industry by the inverse of its full-sample standard deviation, with weights normalized so they sum up to one.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Computing the full sample industry annualized standard deviation</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>industry.std.full.sample <span class="ot">&lt;-</span> <span class="fu">apply</span>(data[, <span class="sc">-</span><span class="dv">1</span>], <span class="dv">2</span>, sd) </span>
@@ -306,8 +308,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="question-2.3---repeat-1-but-now-each-month-select-the-6-industries-each-allocated-16-of-capital-with-the-highest-return-in-the-past-12-months-computed-as-pit-pit-250---1." class="level3">
-<h3 class="anchored" data-anchor-id="question-2.3---repeat-1-but-now-each-month-select-the-6-industries-each-allocated-16-of-capital-with-the-highest-return-in-the-past-12-months-computed-as-pit-pit-250---1.">Question 2.3 - Repeat (1), but now each month select the 6 industries (each allocated 1/6 of capital) with the highest return in the past 12 months (computed as<span class="math inline">\([ P(i;t) / P(i;t-250) ] - 1)\)</span>.</h3>
+<section id="question-2.3" class="level3">
+<h3 class="anchored" data-anchor-id="question-2.3">Question 2.3</h3>
+<p>Repeat (1), but now each month select the 6 industries (each allocated 1/6 of capital) with the highest return in the past 12 months (computed as <span class="math inline">\([ P(i;t) / P(i;t-250) ] - 1)\)</span>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating year.month variable for the 1960-2022 dataset, so that then we can</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># select directly both the year and month at the same time</span></span>
@@ -412,8 +415,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="question-3" class="level2">
 <h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
-<section id="repeat-the-momentum-strategy-of-question-2.3-but-instead-of-a-constant-full-allocation-of-capital-in-each-period-day-compute-the-covariance-matrix-between-the-6-chosen-industry-in-the-previous-3-months-63-trading-days-and-use-it-to-target-a-constant-portfolio-standard-deviation-of-20-annually." class="level3">
-<h3 class="anchored" data-anchor-id="repeat-the-momentum-strategy-of-question-2.3-but-instead-of-a-constant-full-allocation-of-capital-in-each-period-day-compute-the-covariance-matrix-between-the-6-chosen-industry-in-the-previous-3-months-63-trading-days-and-use-it-to-target-a-constant-portfolio-standard-deviation-of-20-annually.">3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.</h3>
+<p>Question 3.3 - Repeat the momentum strategy of Question 2.3, but instead of a constant, full allocation of capital, in each period (day), compute the covariance matrix between the 6 chosen industry in the previous 3 months (63 trading days), and use it to target a constant portfolio standard deviation of 20% annually.</p>
 <div class="cell" data-hash="quant_cache/html/unnamed-chunk-11_a976b5ae726b8d83d82199cca5692247">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First, we need to find the best 6 asset classes in the previous 3 months </span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (63 trading days). We proceed as above, but using daily returns dataset </span></span>
@@ -509,11 +511,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-</section>
 <section id="question-4" class="level2">
 <h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
-<section id="compute-the-equal-weighted-portfolio-as-in-question-2.1-on-the-1960-2022-sample-and-the-yearly-return-in-each-industry-as-in-question-2.3.-in-each-period-each-day-compute-the-share-alpha_t-of-industries-with-positive-momentum-positive-yearly-return-and-invest-in-the-equal-weighted-portfolio-each-month-a-share-alpha_t-with-the-rest-going-to-cash-which-you-should-assume-yields-3-annually" class="level3">
-<h3 class="anchored" data-anchor-id="compute-the-equal-weighted-portfolio-as-in-question-2.1-on-the-1960-2022-sample-and-the-yearly-return-in-each-industry-as-in-question-2.3.-in-each-period-each-day-compute-the-share-alpha_t-of-industries-with-positive-momentum-positive-yearly-return-and-invest-in-the-equal-weighted-portfolio-each-month-a-share-alpha_t-with-the-rest-going-to-cash-which-you-should-assume-yields-3-annually">4.1 - Compute the equal-weighted portfolio as in Question 2.1 (on the 1960-2022 sample) and the yearly return in each industry as in Question 2.3. In each period (each day), compute the share alpha_t of industries with positive momentum (positive yearly return), and invest in the equal-weighted portfolio each month a share alpha_t, with the rest going to cash, which you should assume yields 3% annually</h3>
+<p>Compute the equal-weighted portfolio as in Question 2.1 (on the 1960-2022 sample) and the yearly return in each industry as in Question 2.3. In each period (each day), compute the share alpha_t of industries with positive momentum (positive yearly return), and invest in the equal-weighted portfolio each month a share alpha_t, with the rest going to cash, which you should assume yields 3% annually</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>n.<span class="fl">60.22</span> <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data60<span class="fl">.22</span>) </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -669,11 +669,9 @@ others       0.8075617 0.6268410 0.8001743 0.8034126 1.0000000</code></pre>
 </div>
 </div>
 </section>
-</section>
 <section id="question-5" class="level2">
 <h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
-<section id="for-the-full-sample-repeat-the-momentum-strategy-in-question-2.3-but-use-the-returns-of-the-previous-five-years-252-5-days-as-a-measure-of-momentum.-briefly-comment-on-the-results." class="level3">
-<h3 class="anchored" data-anchor-id="for-the-full-sample-repeat-the-momentum-strategy-in-question-2.3-but-use-the-returns-of-the-previous-five-years-252-5-days-as-a-measure-of-momentum.-briefly-comment-on-the-results.">5.1 - For the full sample, repeat the momentum strategy in Question 2.3, but use the returns of the previous five years (252 * 5 days) as a measure of momentum. Briefly comment on the results.</h3>
+<p>For the full sample, repeat the momentum strategy in Question 2.3, but use the returns of the previous five years (252 * 5 days) as a measure of momentum. Briefly comment on the results.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Full log dataset to aggregate</span></span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>log.data.no.date <span class="ot">&lt;-</span> <span class="fu">log</span>(data[, <span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> <span class="dv">1</span>) </span>
@@ -766,7 +764,6 @@ others       0.8075617 0.6268410 0.8001743 0.8034126 1.0000000</code></pre>
 <p><img src="quant_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
 </section>
 
 </main>

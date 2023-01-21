@@ -1,5 +1,9 @@
 ---
 title: "Quantitative Risk and Asset Management"
+execute:
+  warning: false
+  echo: true
+  message: false
 format:
   gfm:
     toc: true
