@@ -10,7 +10,7 @@ format:
     toc-title: Table of Contents
     keep-html: true
     keep-md: true
-    code-fold: true
+#    code-fold: true
 ---
 
 ## Outline
@@ -21,7 +21,6 @@ The data used has daily returns for 17 US industries (from the Kenneth French da
 
 Testing how github renders functions:
 
-$\frac{\alpha}{2 \lambda}$
 
 ```{r}
 #| include: false

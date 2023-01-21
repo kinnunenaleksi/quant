@@ -21,17 +21,10 @@ French database, value weighted) from 1926 to 2022.
 
 Testing how github renders functions:
 
-$\frac{\alpha}{2 \lambda}$
-
-<details>
-<summary>Code</summary>
-
 ``` r
 data <- read.csv("/Users/aleksi/BI Quantitative Risk and Asset Management/Industry17PortfoliosDaily.csv", skip = 9, header = T)
 head(data)
 ```
-
-</details>
 
              X  Food Mines   Oil Clths Durbl Chems Cnsum Cnstr Steel FabPr Machn
     1 19260701  0.03  0.30  0.62  0.14 -1.09  0.56  0.04  0.30 -0.62 -0.79 -0.12
@@ -53,9 +46,6 @@ head(data)
 1.1: On average, do more volatile industries have higher average log
 returns? And higher average returns?
 
-<details>
-<summary>Code</summary>
-
 ``` r
 # Extracting the data from 1960 to 2022 from the full dataset
 data60.22 <- data[data[, 1] > "1960-01-01", ] 
@@ -76,23 +66,13 @@ log.ret60.22 <- apply((data60.22[, -1] + 1), 2, log) # + 1 to compute log return
 which(is.infinite(log.ret60.22)) # no infinite values
 ```
 
-</details>
-
     integer(0)
-
-<details>
-<summary>Code</summary>
 
 ``` r
 which(is.nan(log.ret60.22))      # no NaNs
 ```
 
-</details>
-
     integer(0)
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # Computing annualized average log returns for every industry
@@ -104,18 +84,11 @@ kurt <- apply(data60.22[, -1], 2, kurtosis )
 mean(kurt) 
 ```
 
-</details>
-
     [1] 17.25315
-
-<details>
-<summary>Code</summary>
 
 ``` r
 median(kurt)
 ```
-
-</details>
 
     [1] 16.74064
 
@@ -130,9 +103,6 @@ median(kurt)
 Plot the Cumulative log returns for an equal-weighted portfolio (each
 industry with weight 1/17). Compute mean, std, and Sharpe ratio for
 returns.
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # Computing the portfolio average returns over the 1960-2022 period
@@ -151,10 +121,6 @@ bal.port.log.ret     <- log(1 + bal.port.ret)
 bal.port.cum.log.ret <- cumsum(bal.port.log.ret) 
 ```
 
-</details>
-<details>
-<summary>Code</summary>
-
 ``` r
 ### Plot 4: Cumulative Log returns of the Equally weighted portfolio 
 x1 <- data.frame(data60.22$date)
@@ -172,8 +138,6 @@ p3 <- ggplot(M3, aes(x = data60.22$date, y = bal.port.cum.log.ret)) +
 p3 + theme(plot.title = element_text(size = 17))
 ```
 
-</details>
-
 ![](quant_files/figure-commonmark/unnamed-chunk-5-1.png)
 
 ### Question 2.2
@@ -181,9 +145,6 @@ p3 + theme(plot.title = element_text(size = 17))
 Repeat 2.1, but now weight each industry by the inverse of its
 full-sample standard deviation, with weights normalized so they sum up
 to one.
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # Computing the full sample industry annualized standard deviation
@@ -195,23 +156,13 @@ norm.port.weights <- industry.std.full.sample * normalizer # normalized weights
 sum(norm.port.weights)                                     # they sum up to 1 
 ```
 
-</details>
-
     [1] 1
-
-<details>
-<summary>Code</summary>
 
 ``` r
 mean(norm.port.weights) == 1/17                            # equal to 1/17
 ```
 
-</details>
-
     [1] TRUE
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # Annualized average normalized Portfolio returns, 1960-2022 sample data
@@ -228,10 +179,6 @@ norm.port.Sharpe <- norm.port.avg.ret / norm.port.std
 norm.port.log.ret     <- log(1 + norm.port.ret)   
 norm.port.cum.log.ret <- cumsum(norm.port.log.ret) 
 ```
-
-</details>
-<details>
-<summary>Code</summary>
 
 ``` r
 ### Plot 5: Cumulative Log returns of the normalized portfolio 
@@ -251,8 +198,6 @@ p4 <- ggplot(M4, aes(x = data60.22$date, y = norm.port.cum.log.ret)) +
 p4 + theme(plot.title = element_text(size = 17)) 
 ```
 
-</details>
-
 ![](quant_files/figure-commonmark/unnamed-chunk-7-1.png)
 
 ### Question 2.3
@@ -260,9 +205,6 @@ p4 + theme(plot.title = element_text(size = 17))
 Repeat (1), but now each month select the 6 industries (each allocated
 1/6 of capital) with the highest return in the past 12 months (computed
 as $[ P(i;t) / P(i;t-250) ] - 1)$.
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # Generating year.month variable for the 1960-2022 dataset, so that then we can
@@ -285,10 +227,6 @@ colnames(month.rets)[1] <- "year.mont"
 
 log.month.rets.no.date  <- month.rets[, -1]
 ```
-
-</details>
-<details>
-<summary>Code</summary>
 
 ``` r
 # For loop to get 12 months rolling window for the best 6 asset classes
@@ -348,10 +286,6 @@ best6.port.log.ret     <- log(1 + best.six.port.ret)
 best6.port.cum.log.ret <- cumsum(best6.port.log.ret ) 
 ```
 
-</details>
-<details>
-<summary>Code</summary>
-
 ``` r
 ### Plot 6: Cumulative Log returns for the 12 months momentum strategy portfolio 
 y3 <- data.frame(month.rets$year.mont[-(1:12)])
@@ -369,8 +303,6 @@ p5 <- ggplot(M5, aes(x = month.rets$year.mont[-(1:12)], y = best6.port.cum.log.r
 p5 + theme(plot.title = element_text(size = 17)) 
 ```
 
-</details>
-
 ![](quant_files/figure-commonmark/unnamed-chunk-10-1.png)
 
 ## Question 3
@@ -380,9 +312,6 @@ of a constant, full allocation of capital, in each period (day), compute
 the covariance matrix between the 6 chosen industry in the previous 3
 months (63 trading days), and use it to target a constant portfolio
 standard deviation of 20% annually.
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # First, we need to find the best 6 asset classes in the previous 3 months 
@@ -439,10 +368,6 @@ for (i in (1 : N ) ) {
 }
 ```
 
-</details>
-<details>
-<summary>Code</summary>
-
 ``` r
 # Portfolio returns
 data60.22.cut     <- data60.22[-(1:63), -1 ] # removing the first 3 months
@@ -456,10 +381,6 @@ port.ret.star.std <- sd(port.ret.star)*sqrt(252)
 # Portfolio Sharpe Ratio
 Sharpe.star <- avg.port.ret.star / port.ret.star.std
 ```
-
-</details>
-<details>
-<summary>Code</summary>
 
 ``` r
 # Plotting portfolio cumulative log returns
@@ -483,8 +404,6 @@ p6 <- ggplot(M6, aes(x = data60.22$date[-(1:63)], y = port.cum.log.ret.star)) +
 p6 + theme(plot.title = element_text(size = 17))
 ```
 
-</details>
-
 ![](quant_files/figure-commonmark/unnamed-chunk-13-1.png)
 
 ## Question 4
@@ -495,9 +414,6 @@ Compute the equal-weighted portfolio as in Question 2.1 (on the
 with positive momentum (positive yearly return), and invest in the
 equal-weighted portfolio each month a share alpha_t, with the rest going
 to cash, which you should assume yields 3% annually
-
-<details>
-<summary>Code</summary>
 
 ``` r
 n.60.22 <- nrow(data60.22) 
@@ -546,8 +462,6 @@ Sharpe_ratio_final <- mean_excess_rets / excess_rets_std
 # Cheching for correlation among industries
 cor(data60.22[, -1]) # They are all positively correlated
 ```
-
-</details>
 
                       food     mines       oil   clothes  durables chemicals
     food         1.0000000 0.4221401 0.5635021 0.6372003 0.6668227 0.6818481
@@ -604,9 +518,6 @@ cor(data60.22[, -1]) # They are all positively correlated
     finance      0.7895643 0.6232721 0.7223783 1.0000000 0.8034126
     others       0.8075617 0.6268410 0.8001743 0.8034126 1.0000000
 
-<details>
-<summary>Code</summary>
-
 ``` r
 ### Plot 8: Cumulative Log returns for the portfolio with alpha wealth invested
 # in an EW portfolio in the industries and (1-alpha) weight in a Risk Free rate
@@ -628,12 +539,7 @@ p7 <- ggplot(M7, aes(x = data60.22$date[-(1:252)], y = port.cum.log.exc.ret)) +
 p7 + theme(plot.title = element_text(size = 17)) 
 ```
 
-</details>
-
 ![](quant_files/figure-commonmark/unnamed-chunk-15-1.png)
-
-<details>
-<summary>Code</summary>
 
 ``` r
 ### plot 9: Daily allocation in the EW portfolio of industries
@@ -655,8 +561,6 @@ p10 <- ggplot(M8, aes(x = data60.22$date[-(1:252)], y = alpha.portfolio)) +
 p10 + theme(plot.title = element_text(size = 17)) 
 ```
 
-</details>
-
 ![](quant_files/figure-commonmark/unnamed-chunk-15-2.png)
 
 ## Question 5
@@ -664,9 +568,6 @@ p10 + theme(plot.title = element_text(size = 17))
 For the full sample, repeat the momentum strategy in Question 2.3, but
 use the returns of the previous five years (252 \* 5 days) as a measure
 of momentum. Briefly comment on the results.
-
-<details>
-<summary>Code</summary>
 
 ``` r
 # Full log dataset to aggregate
@@ -732,10 +633,6 @@ best.six.std.full <- sd(best.six.port.ret.full)*sqrt(12)
 best.six.sharpe.full <- best.six.avg.port.ret.full  / best.six.std.full
 ```
 
-</details>
-<details>
-<summary>Code</summary>
-
 ``` r
 # Plotting cumulative portfolio returns
 colnames(month.rets.full)[1] <- "year.mont"
@@ -759,7 +656,5 @@ p8 <- ggplot(M8, aes(x = month.rets.full$year.mont[-(1:60)], y = port.cum.log.re
 
 p8 + theme(plot.title = element_text(size = 17)) 
 ```
-
-</details>
 
 ![](quant_files/figure-commonmark/unnamed-chunk-17-1.png)
